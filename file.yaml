@@ -1,0 +1,11 @@
+key_1:
+- lesson
+- 2
+- csv
+- json
+- yaml
+key_2: 2018
+key_3:
+  EUR: 86.1513 €
+  RUB: 6556.06 ₽
+  USD: 100 $

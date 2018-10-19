@@ -4,11 +4,13 @@ from config import get_client_socket
 
 AUTHORIZED = False
 
-def send_data(s):
+def send_data(s, action=""):
 
     if not AUTHORIZED:
+        action = "authenticate"
+
         client_msg = {
-            "action": "authenticate",
+            "action": f"{action}",
             "time": int(time.time()),
             "encoding": "utf-8",
             "user": {
@@ -32,6 +34,8 @@ def send_data(s):
 
 if __name__ == "__main__":
     s = get_client_socket()
+
+    send_data(s, "presence")
 
     while True:
         send_data(s)

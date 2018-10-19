@@ -3,17 +3,7 @@ from responses import get_server_response
 from users import get_users
 from config import get_server_socket
 
-s = get_server_socket()
-print("Server started")
-
-client, addr = s.accept()
-print(f"Client connected: {client} {addr}")
-
-while True:
-    print("Waiting for data")
-
-    client_msg = json.loads(client.recv(10240).decode("utf-8"))
-    print("Data received")
+def read_data(client_msg):
 
     if client_msg["action"] == "authenticate":
         data_users = get_users()
@@ -33,4 +23,19 @@ while True:
         client.close()
         s.close()
         server_response = get_server_response("200")
+
+s = get_server_socket()
+print("Server started")
+
+client, addr = s.accept()
+print(f"Client connected: {client} {addr}")
+
+while True:
+    print("Waiting for data")
+
+    client_msg = json.loads(client.recv(10240).decode("utf-8"))
+    print("Data received")
+
+    read_data(client_msg)
+
 

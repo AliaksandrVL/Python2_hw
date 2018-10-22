@@ -56,7 +56,8 @@ def send_data(s):
         action = input("Action: ")
         send_client_msg(s, action)
 
-if __name__ == "__main__":
+def get_socket_and_waiting():
+
     s = get_client_socket()
 
     while True:
@@ -65,6 +66,9 @@ if __name__ == "__main__":
         server_response = json.loads(s.recv(10240).decode("utf-8"))
 
         if USERNAME == "" and server_response["response"] == "200":
-            USERNAME = "Admin"
+            USERNAME = server_response["username"]
 
         print(server_response["alert"])
+
+if __name__ == "__main__":
+    get_socket_and_waiting()
